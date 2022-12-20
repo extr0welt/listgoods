@@ -6,10 +6,10 @@ from exception import EndingExpirationDate
 class Good:
     '''Класс товара'''
 
-    def __init__(self, name, count, price, production_date, expiration_day):
+    def __init__(self, name, price, count, production_date, expiration_day):
         self.name = name
-        self.count = count
         self.price = price
+        self.count = count
         self.production_date = datetime.strptime(production_date, '%Y-%m-%d')
         self.expiration_day = expiration_day
 
@@ -141,7 +141,7 @@ class GoodList:
         min_count = 10000
 
         for good in self.good_list:
-            if good.count < min_count:
+            if int(good.count) < int(min_count):
                 min_count = good.count
                 name = good.name
         return name
@@ -153,12 +153,12 @@ with open('list_goods.txt', 'r', encoding='utf-8') as file:
 
     for str_good in list_with_goods:
         list_good = str_good.split(':')
-
         name = list_good[0]
         price = list_good[1]
         count = list_good[2]
         production_date = list_good[3]
         expiration_day = list_good[4]
+        good_list.add_good_in_list(Good(name, price, count, production_date, expiration_day))
 
-    good_list.add_good_in_list(Good(name, price, count, production_date, expiration_day))
-    good_list.get_mean_price()
+
+good_list.get_mean_price()
