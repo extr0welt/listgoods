@@ -1,0 +1,3 @@
+class EndingExpirationDate(Exception):
+    '''Исключение по истечению срока годности'''
+    ...
