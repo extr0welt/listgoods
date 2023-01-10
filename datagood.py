@@ -1,6 +1,8 @@
 from datetime import datetime
 from datetime import timedelta
 from exception import EndingExpirationDate
+
+
 class Good:
     '''Класс товара'''
     def __init__(self, name, price, count, production_date, expiration_day):
@@ -9,8 +11,10 @@ class Good:
         self.count = count
         self.production_date = datetime.strptime(production_date, '%Y-%m-%d')
         self.expiration_day = expiration_day
+
     def __str__(self):
         return f'{self.name}'
+
     def check_expiration_date(self):
         '''Проверка срока годности товара'''
 
@@ -21,11 +25,14 @@ class Good:
             return True
         else:
             raise EndingExpirationDate
+
+
 class GoodList:
     '''Класс со списком товаров'''
 
     def __init__(self):
         self.good_list = []
+
     def add_good_in_list(self, good: Good):
         '''Добавляем товар в список'''
 
@@ -35,6 +42,7 @@ class GoodList:
         except EndingExpirationDate:
             print(f"Товар {good} с истекшим сроком годности")
             return None
+
     def remove_good_from_list(self, name: str):
         '''Удаляем товар из списка по имени (первый найденный)'''
 
@@ -42,6 +50,7 @@ class GoodList:
             if good.name == name:
                 del self.good_list[index]
                 break
+
     def clear_by_expiration_date(self):
         '''Очищает по сроку годности'''
 
@@ -50,6 +59,7 @@ class GoodList:
                 good.check_expiration_date()
             except EndingExpirationDate:
                 self.remove_good_from_list(good.name)
+
     def get_mean_price(self):
         '''Получаем среднюю цену товаров'''
 
@@ -67,6 +77,7 @@ class GoodList:
         if sum_count != 0:
             mean = sum_price / sum_count
         return mean
+
     def get_good_with_max_price(self):
         '''Получаем товар с максимальной ценой'''
 
@@ -78,6 +89,7 @@ class GoodList:
                 max_price = good.price
                 name = good.name
         return name
+
     def get_good_with_min_price(self):
         '''Получаем товар с минимальной ценой'''
 
@@ -89,6 +101,7 @@ class GoodList:
                 min_price = int(good.price)
                 name = good.name
         return name
+
     def get_good_with_max_count(self):
         '''Получаем товар с максимальным количеством'''
 
@@ -100,6 +113,7 @@ class GoodList:
                 max_count = good.count
                 name = good.name
         return name
+
     def get_good_with_min_count(self):
         '''Получаем товар с минимальным количеством'''
 
@@ -112,5 +126,21 @@ class GoodList:
                 name = good.name
         return name
 
-good_list = GoodList()
 
+class Reverse:
+    '''Итератор для зацикливания последовательности  в обратном порядке'''
+    def __init__(self, data):
+        self.data = data
+        self.index = len(data)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index == 0:
+            raise StopIteration
+        self.index -= 1
+        return self.data[self.index]
+
+
+good_list = GoodList()

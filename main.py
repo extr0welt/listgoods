@@ -1,5 +1,6 @@
 import datagood
 
+
 if __name__ == '__main__':
     with open('list_goods.txt', 'r', encoding='utf-8') as file:
         list_with_goods = file.readlines()
